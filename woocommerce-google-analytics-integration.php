@@ -1,13 +1,14 @@
 <?php
 /**
  * Plugin Name: WooCommerce Google Analytics Integration
- * Plugin URI: http://wordpress.org/plugins/woocommerce-google-analytics-integration/
+ * Plugin URI: https://wordpress.org/plugins/woocommerce-google-analytics-integration/
  * Description: Allows Google Analytics tracking code to be inserted into WooCommerce store pages.
  * Author: WooCommerce
  * Author URI: https://woocommerce.com
- * Version: 1.4.7
- * WC requires at least: 2.1
- * WC tested up to: 3.5
+ * Version: 1.5.1
+ * WC requires at least: 3.2
+ * WC tested up to: 5.0
+ * Tested up to: 5.6
  * License: GPLv2 or later
  * Text Domain: woocommerce-google-analytics-integration
  * Domain Path: languages/
@@ -19,23 +20,14 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 if ( ! class_exists( 'WC_Google_Analytics_Integration' ) ) {
 
+	define( 'WC_GOOGLE_ANALYTICS_INTEGRATION_VERSION', '1.5.1' ); // WRCS: DEFINED_VERSION.
+
 	/**
 	 * WooCommerce Google Analytics Integration main class.
 	 */
 	class WC_Google_Analytics_Integration {
 
-		/**
-		 * Plugin version.
-		 *
-		 * @var string
-		 */
-		const VERSION = '1.4.7';
-
-		/**
-		 * Instance of this class.
-		 *
-		 * @var object
-		 */
+		/** @var WC_Google_Analytics_Integration $instance Instance of this class. */
 		protected static $instance = null;
 
 		/**
@@ -50,8 +42,8 @@ if ( ! class_exists( 'WC_Google_Analytics_Integration' ) ) {
 			add_action( 'init', array( $this, 'load_plugin_textdomain' ) );
 			add_action( 'init', array( $this, 'show_ga_pro_notices' ) );
 
-			// Checks with WooCommerce is installed.
-			if ( class_exists( 'WC_Integration' ) && defined( 'WOOCOMMERCE_VERSION' ) && version_compare( WOOCOMMERCE_VERSION, '2.1-beta-1', '>=' ) ) {
+			// Checks which WooCommerce is installed.
+			if ( class_exists( 'WC_Integration' ) && defined( 'WOOCOMMERCE_VERSION' ) && version_compare( WOOCOMMERCE_VERSION, '3.2', '>=' ) ) {
 				include_once 'includes/class-wc-google-analytics.php';
 
 				// Register the integration.
@@ -63,11 +55,18 @@ if ( ! class_exists( 'WC_Google_Analytics_Integration' ) ) {
 			add_filter( 'plugin_action_links_' . plugin_basename( __FILE__ ), array( $this, 'plugin_links' ) );
 		}
 
+		/**
+		 * Add links on the plugins page (Settings & Support)
+		 *
+		 * @param  array $links Default links
+		 * @return array        Default + added links
+		 */
 		public function plugin_links( $links ) {
 			$settings_url = add_query_arg(
 				array(
-					'page' => 'wc-settings',
-					'tab' => 'integration',
+					'page'    => 'wc-settings',
+					'tab'     => 'integration',
+					'section' => 'google_analytics',
 				),
 				admin_url( 'admin.php' )
 			);
@@ -83,7 +82,7 @@ if ( ! class_exists( 'WC_Google_Analytics_Integration' ) ) {
 		/**
 		 * Return an instance of this class.
 		 *
-		 * @return object A single instance of this class.
+		 * @return WC_Google_Analytics_Integration A single instance of this class.
 		 */
 		public static function get_instance() {
 			// If the single instance hasn't been set, set it now.
@@ -96,8 +95,6 @@ if ( ! class_exists( 'WC_Google_Analytics_Integration' ) ) {
 
 		/**
 		 * Load the plugin text domain for translation.
-		 *
-		 * @return void
 		 */
 		public function load_plugin_textdomain() {
 			$locale = apply_filters( 'plugin_locale', get_locale(), 'woocommerce-google-analytics-integration' );
@@ -108,19 +105,16 @@ if ( ! class_exists( 'WC_Google_Analytics_Integration' ) ) {
 
 		/**
 		 * WooCommerce fallback notice.
-		 *
-		 * @return string
 		 */
 		public function woocommerce_missing_notice() {
-			echo '<div class="error"><p>' . sprintf( __( 'WooCommerce Google Analytics depends on the last version of %s to work!', 'woocommerce-google-analytics-integration' ), '<a href="http://www.woothemes.com/woocommerce/" target="_blank">' . __( 'WooCommerce', 'woocommerce-google-analytics-integration' ) . '</a>' ) . '</p></div>';
+			echo '<div class="error"><p>' . sprintf( __( 'WooCommerce Google Analytics depends on the last version of %s to work!', 'woocommerce-google-analytics-integration' ), '<a href="https://woocommerce.com/" target="_blank">' . __( 'WooCommerce', 'woocommerce-google-analytics-integration' ) . '</a>' ) . '</p></div>';
 		}
 
 		/**
 		 * Add a new integration to WooCommerce.
 		 *
 		 * @param  array $integrations WooCommerce integrations.
-		 *
-		 * @return array               Google Analytics integration.
+		 * @return array               Google Analytics integration added.
 		 */
 		public function add_integration( $integrations ) {
 			$integrations[] = 'WC_Google_Analytics';

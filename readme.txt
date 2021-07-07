@@ -1,54 +1,46 @@
 === WooCommerce Google Analytics Integration ===
-Contributors: woocommerce, claudiosanches, bor0, royho, laurendavissmith001, c-shultz
+Contributors: woocommerce, automattic, claudiosanches, bor0, royho, laurendavissmith001, c-shultz
 Tags: woocommerce, google analytics
-Requires at least: 3.8
-Tested up to: 5.0
-Stable tag: 1.4.7
+Requires at least: 3.9
+Tested up to: 5.6
+Stable tag: 1.5.1
 License: GPLv3
-License URI: http://www.gnu.org/licenses/gpl-3.0.html
+License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
 Provides integration between Google Analytics and WooCommerce.
 
 == Description ==
 
-This plugin provides the integration between Google Analytics and the WooCommerce plugin. You can link a referral to a purchase and add transaction information to your Google Analytics data. It also supports the new Universal Analytics, eCommerce, and enhanced eCommerce event tracking.
+This plugin provides the integration between Google Analytics and the WooCommerce plugin. You can link a referral to a purchase and add transaction information to your Google Analytics data. It also supports Global Site Tag, Universal Analytics, eCommerce, and enhanced eCommerce event tracking.
 
-Starting WooCommerce 2.1, this integration will no longer be part of WooCommerce and will only be available by using this plugin.
+Starting from WooCommerce 2.1, this integration is no packaged with WooCommerce and is only available by using this plugin.
 
-Contributions are welcome via the [GitHub repository](https://github.com/woothemes/woocommerce-google-analytics-integration).
+Contributions are welcome via the [GitHub repository](https://github.com/woocommerce/woocommerce-google-analytics-integration).
 
 == Installation ==
 
 1. Download the plugin file to your computer and unzip it
 2. Using an FTP program, or your hosting control panel, upload the unzipped plugin folder to your WordPress installation’s wp-content/plugins/ directory.
 3. Activate the plugin from the Plugins menu within the WordPress admin.
-4. Don't forget to enable e-commerce tracking in your Google Analytics account: https://support.google.com/analytics/answer/1009612?hl=en
+4. Don't forget to enable e-commerce tracking in your Google Analytics account: [https://support.google.com/analytics/answer/1009612?hl=en](https://support.google.com/analytics/answer/1009612?hl=en)
 
-Or use the automatic installation wizard through your admin panel, just search for this plugins name.
+Or use the automatic installation wizard through your admin panel, just search for this plugin's name.
 
 == Frequently Asked Questions ==
 
 = Where can I find the setting for this plugin? =
 
-This plugin will add the settings to the Integration tab, to be found in the WooCommerce > Settings menu.
+This plugin will add the settings to the Integration tab, found in the WooCommerce → Settings menu.
 
 = I don't see the code on my site. Where is it? =
 
-We purposefully don't track admin visits to the site. Log out of the site (or open a Google Chrome Incognito window) and check if the site is there for non-admins.
+We purposefully don't track admin visits to the site. Log out of the site (or open a Google Chrome Incognito window) and check if the code is there for non-admins.
 
-Also please make sure your Google Analytics ID under WooCommerce -> Settings -> Integrations.
+Also please make sure to enter your Google Analytics ID under WooCommerce → Settings → Integrations.
 
 = My code is there. Why is it still not tracking sales?  =
 
-Duplicate Google Analytics code causes a conflict in tracking. Remove any other Google Analytics plugin or code from your site to avoid duplication and conflicts in tracking.
-
-= Can I install it already? =
-
-Starting the WooCommerce 2.1 release, the Google Analytics integration for WooCommerce is no longer part of the WooCommerce plugin.
-
-Until you've updated to WooCommerce 2.1, this plugin puts itself in some sort of hibernate mode.
-
-You can leave this plugin activated and it will seamlessly take over the integration that once was in the WooCommerce plugin, once you update to the next version.
+Duplicate Google Analytics code causes a conflict in tracking. Remove any other Google Analytics plugins or code from your site to avoid duplication and conflicts in tracking.
 
 = My settings are not saving! =
 
@@ -68,27 +60,37 @@ Exact wording depends on the national data privacy laws and should be adjusted.
 
 == Changelog ==
 
-= 1.4.7 - 11/19/2018 =
-* Tweak - WP 5.0 compatibility.
+= 1.5.1 - 2021-02-03 =
+* Tweak - WC 5.0 compatibility.
 
-= 1.4.6 - 06/11/2018 =
-* Fix - Check for active WooCommerce plugin.
+= 1.5.0 - 2020-12-17 =
+* Add - Option to use Global Site Tag and the gtag.js library (for Universal Analytics or Google Analytics 4).
+* Add - Several new values added to the Tracker data.
+* Add - Developer ID for gtag.js and analytics.js.
+* Tweak - Bump minimum-supported WooCommerce version to 3.2.
+* Tweak - Remove deprecated jQuery .click().
+* Fix - Settings link in plugins table row points directly to plugin settings.
+* Fix - Issue with multiple consecutive "Remove from Cart" events sent from the mini cart.
 
-= 1.4.5 - 16/10/2018 =
-* Tweak - Mention Google Analytics Pro in certain cases.
-* Tweak - WC 3.5 compatibility.
+= 1.4.25 - 2020-11-25 =
+* Tweak - WC 4.7 compatibility.
+* Tweak - WordPress 5.6 compatibility.
 
-= 1.4.4 - 20/03/2018 =
-* Fix   - WC30 compatibility error when using deprecated get_product_from_item method.
-* Fix   - Check object before using methods to prevent errors.
-* Fix   - Variations not reporting category in cart tracking.
-* Add   - Filter woocommerce_ga_disable_tracking added to disable tracking.
-* Tweak - Rebuilt languages pot file.
+= 1.4.24 - 2020-10-12 =
+* Tweak - WC 4.5 compatibility.
 
-= 1.4.3 - 15/06/2017 =
-* Fix - WC 3.x notice by using proper variation data.
-* Add - Option to track 404 (Not found) errors.
+= 1.4.23 - 2020-08-19 =
+* Fix   - Prevent transaction from being tracked a second time when page is reloaded locally or from cache.
+* Tweak - WordPress 5.5 compatibility.
 
+= 1.4.22 - 2020-06-05 =
+* Tweak - WC 4.2 compatibility.
+
+= 1.4.21 - 2020-05-04 =
+* Tweak - WC 4.1 compatibility.
+
+= 1.4.20 - 2020-03-29 =
+* Fix - Change wc_goole_analytics_send_pageview fiter name to wc_google_analytics_send_pageview.
 
 == Upgrade Notice ==
 = 1.4.0 =
